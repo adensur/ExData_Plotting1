@@ -1,6 +1,6 @@
 ##This script loads the data from the file household_power_consumption.txt,
 ##which should be located in R working directory.
-##it creates a plot named plot1.png
+##it creates a plot named plot2.png
 
 ##Step 1. Reading the data. (this part is the same for all 4 plots)
 
@@ -21,10 +21,16 @@ as.POSIXct(data[,1],format="%d/%m/%Y %H:%M:%S")->data[,1]
 
 ##Step2.Plot the actual plot.
 ##First we open a device for plotting into file:
-png("plot1.png")       
+png("plot2.png")       
 ##the default function png() actually has all the correct params, like height and width
 
-##This is a histogram of Global Active Power data, coloured in red and with extra main label and x label.
 par(bg=NA)         ##Background will be transparent
-with(data,hist(Global_active_power,col="red",main="Global Active Power",xlab="Global Active Power (kilowatts)"))
+
+##The plot is a simple scatterpoint plot with lines connecting each point;
+##each point has a coordinate ("Date/time", "Global active power")
+with(data,plot(Date, Global_active_power,type="l",
+               xlab="",ylab="Global Active Power (kilowatts)"))
 dev.off()
+
+##Note that output of the function might change based on the system language of the user.
+##I used the function setLanguage("en") from tcltk2 package to make it correct.

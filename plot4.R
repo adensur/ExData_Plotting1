@@ -1,6 +1,6 @@
 ##This script loads the data from the file household_power_consumption.txt,
 ##which should be located in R working directory.
-##it creates a plot named plot1.png
+##it creates a plot named plot4.png
 
 ##Step 1. Reading the data. (this part is the same for all 4 plots)
 
@@ -21,10 +21,31 @@ as.POSIXct(data[,1],format="%d/%m/%Y %H:%M:%S")->data[,1]
 
 ##Step2.Plot the actual plot.
 ##First we open a device for plotting into file:
-png("plot1.png")       
+png("plot4.png")       
 ##the default function png() actually has all the correct params, like height and width
 
-##This is a histogram of Global Active Power data, coloured in red and with extra main label and x label.
 par(bg=NA)         ##Background will be transparent
-with(data,hist(Global_active_power,col="red",main="Global Active Power",xlab="Global Active Power (kilowatts)"))
+par(mfrow=c(2,2))  ##Set the number of row/columns for plots
+
+##First plot is equal to plot2.png:
+with(data,plot(Date, Global_active_power,type="l",
+               xlab="",ylab="Global Active Power (kilowatts)"))
+
+##Second plot - Voltage ~ datetime scatterplot with points connected with lines
+with(data,plot(Date, Voltage,type="l",
+               xlab="datetime",ylab="Voltage"))
+
+##Third plot - same as plot3.png, with a little difference - 
+## - there is now no border around the legend (parameter bty="n")
+with(data,plot(Date, Sub_metering_1,type="l",
+               xlab="",ylab="Energy sub metering"))
+with(data,lines(Date, Sub_metering_2,col="red"))
+with(data,lines(Date, Sub_metering_3,col="blue"))
+legend("topright", legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),
+       col=c("black","red","blue"),lty=c(1,1,1),bty="n")
+
+#Fourth plot - Global reactive power ~ datetime.
+with(data,plot(Date, Global_reactive_power,type="l",
+               xlab="datetime",ylab="Global_reactive_power"))
+
 dev.off()
