@@ -27,10 +27,11 @@ png("plot3.png")
 par(bg=NA)         ##Background will be transparent
 
 ##we plot 3 times the data for Sub_metering ~ Date/time, using plot() and line() functions
-with(data,plot(Date, Sub_metering_1,type="l",
-               xlab="",ylab="Energy sub metering"))
-with(data,lines(Date, Sub_metering_2,col="red"))
-with(data,lines(Date, Sub_metering_3,col="blue"))
+with(data,{
+        plot(Date, Sub_metering_1,type="l",xlab="",ylab="Energy sub metering")
+        lines(Date, Sub_metering_2,col="red")
+        lines(Date, Sub_metering_3,col="blue")
+})
 legend("topright", legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),
        col=c("black","red","blue"),lty=c(1,1,1))
 dev.off()

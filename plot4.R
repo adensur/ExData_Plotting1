@@ -27,25 +27,26 @@ png("plot4.png")
 par(bg=NA)         ##Background will be transparent
 par(mfrow=c(2,2))  ##Set the number of row/columns for plots
 
-##First plot is equal to plot2.png:
-with(data,plot(Date, Global_active_power,type="l",
-               xlab="",ylab="Global Active Power (kilowatts)"))
 
-##Second plot - Voltage ~ datetime scatterplot with points connected with lines
-with(data,plot(Date, Voltage,type="l",
-               xlab="datetime",ylab="Voltage"))
-
-##Third plot - same as plot3.png, with a little difference - 
-## - there is now no border around the legend (parameter bty="n")
-with(data,plot(Date, Sub_metering_1,type="l",
-               xlab="",ylab="Energy sub metering"))
-with(data,lines(Date, Sub_metering_2,col="red"))
-with(data,lines(Date, Sub_metering_3,col="blue"))
-legend("topright", legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),
-       col=c("black","red","blue"),lty=c(1,1,1),bty="n")
-
-#Fourth plot - Global reactive power ~ datetime.
-with(data,plot(Date, Global_reactive_power,type="l",
-               xlab="datetime",ylab="Global_reactive_power"))
-
+with(data,{
+        ##First plot is equal to plot2.png:
+        plot(Date, Global_active_power,type="l",xlab="",ylab="Global Active Power (kilowatts)")
+        
+        ##Second plot - Voltage ~ datetime scatterplot with points connected with lines
+        plot(Date, Voltage,type="l",xlab="datetime",ylab="Voltage")
+        
+        ##Third plot - same as plot3.png, with a little difference - 
+        ## - there is now no border around the legend (parameter bty="n")
+        plot(Date, Sub_metering_1,type="l",xlab="",ylab="Energy sub metering")
+        lines(Date, Sub_metering_2,col="red")
+        lines(Date, Sub_metering_3,col="blue")
+        legend("topright", legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),
+               col=c("black","red","blue"),lty=c(1,1,1),bty="n")
+        
+        #Fourth plot - Global reactive power ~ datetime.
+        plot(Date, Global_reactive_power,type="l",
+             xlab="datetime",ylab="Global_reactive_power")
+})
+     
 dev.off()
+
